@@ -538,9 +538,9 @@
   </div>
 
   <div class="container-fluid px-3 px-md-4 py-3 py-md-4">
-    <div id="fileLoadFallback" class="alert alert-info d-none mb-3">
+    <div id="fileLoadFallback" class="alert alert-info mb-3">
       <div class="d-flex flex-wrap align-items-center gap-2">
-        <span>Файл <code>games.json</code> не загружен. Откройте меню сверху и выберите JSON-файл с данными.</span>
+        <span>Данные не загружены. Откройте меню сверху и выберите JSON-файл с данными.</span>
         <button type="button" class="btn btn-primary btn-sm ms-auto" id="createReviewBtn"><i class="bi bi-plus-circle me-1"></i>Создать обзор</button>
       </div>
     </div>
@@ -565,7 +565,7 @@
         </ul>
         <p class="intro-heading mb-1" style="font-size: 0.9rem;">Как пользоваться</p>
         <ul class="intro-list mb-0">
-          <li>Загрузите <code>games.json</code> через меню сверху или перетащите JSON на страницу (при первом запуске файл подгружается автоматически). Если файла нет — нажмите <strong>«Создать обзор»</strong>.</li>
+          <li>Загрузите JSON через меню сверху или перетащите файл на страницу. Если файла нет — нажмите <strong>«Создать обзор»</strong>.</li>
           <li>Название темы можно изменить, нажав на карандаш рядом с заголовком.</li>
           <li>Кнопка <strong>«Сохранить как...»</strong> сохраняет JSON. Для диалога выбора папки включите в настройках браузера «Спрашивать, куда сохранять файлы».</li>
           <li>На карточке: <i class="bi bi-pencil"></i> — редактировать, <i class="bi bi-trash"></i> — удалить. Кнопка <i class="bi bi-plus-lg"></i> добавляет новую карточку.</li>
@@ -1767,32 +1767,6 @@
       });
     })();
 
-    fetch('games.json')
-      .then(res => {
-        if (!res.ok) throw new Error('Файл games.json не найден');
-        return res.json();
-      })
-      .then(function (data) {
-        parseGamesJson(data);
-        renderAllGames();
-        var titleWrap = document.getElementById('pageTitleWrap');
-        if (titleWrap) titleWrap.classList.remove('d-none');
-        var viewModeWrap = document.getElementById('viewModeWrap');
-        if (viewModeWrap) viewModeWrap.classList.remove('d-none');
-        var intro = document.getElementById('introBlock');
-        if (intro) intro.style.display = 'none';
-      })
-      .catch(function () {
-        document.getElementById('gamesRow').innerHTML = '';
-        var titleWrap = document.getElementById('pageTitleWrap');
-        if (titleWrap) titleWrap.classList.add('d-none');
-        document.getElementById('fileLoadFallback').classList.remove('d-none');
-        var menuEl = document.getElementById('topMenu');
-        if (menuEl) {
-          var bsCollapse = bootstrap.Collapse.getInstance(menuEl) || new bootstrap.Collapse(menuEl, { toggle: false });
-          bsCollapse.show();
-        }
-      });
   </script>
 </body>
 </html>
